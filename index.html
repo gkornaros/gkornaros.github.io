@@ -1,0 +1,509 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101010">
+<meta name="description" content="GKphotogallery — Photography, art and unforgettable moments.">
+<title>GKphotogallery | Photography Portfolio</title>
+
+<style>
+:root {
+  --bg: #101010;
+  --panel: #191919;
+  --gold: #c5a46d;
+  --white: #f5f3ef;
+  --muted: #aaa49b;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+}
+a { color: inherit; text-decoration: none; }
+button { font: inherit; }
+.container { width: min(1180px, 90%); margin: auto; }
+
+/* Navigation */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(16,16,16,.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #292929;
+}
+nav {
+  min-height: 76px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+.logo {
+  font-family: Georgia, serif;
+  font-size: 25px;
+  letter-spacing: 1px;
+}
+.logo span { color: var(--gold); }
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links a {
+  color: #ddd;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.nav-links a:hover { color: var(--gold); }
+.menu-toggle {
+  display: none;
+  background: none;
+  border: 1px solid #555;
+  color: white;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+/* Hero */
+.hero {
+  min-height: 300px;
+  display: flex;
+  width:100%;
+  align-items: center;
+  background:
+    linear-gradient(90deg, rgba(0,0,0,.88), rgba(0,0,0,.2)),
+    url('IMG_0673.jpg'),
+    center 100% / cover;
+    background-size: 100% 80%;
+    background-repeat: no-repeat;
+}
+.hero-content { max-width: 650px; padding: 90px 0; }
+.eyebrow {
+  color: var(--gold);
+  letter-spacing: 4px;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+.hero h1 {
+  font: 500 clamp(42px, 7vw, 76px)/1.08 Georgia, serif;
+  margin: 22px 0;
+}
+.hero h1 span { color: var(--gold); }
+.hero p { color: #ddd; max-width: 480px; margin-bottom: 30px; }
+.btn {
+  display: inline-block;
+  padding: 13px 25px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 2px;
+  transition: .25s;
+}
+.btn:hover { background: var(--gold); color: #111; }
+
+/* General sections */
+section { padding: 90px 0; }
+.section-heading { text-align: center; margin-bottom: 40px; }
+.section-heading .eyebrow { margin-bottom: 12px; }
+.section-heading h2 {
+  font: 42px Georgia, serif;
+  font-weight: normal;
+}
+.section-heading p { color: var(--muted); margin-top: 12px; }
+
+/* Gallery */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 35px;
+}
+.filter-btn {
+  background: transparent;
+  color: #bbb;
+  border: 1px solid #383838;
+  padding: 9px 17px;
+  cursor: pointer;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.filter-btn.active, .filter-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.photo {
+  position: relative;
+  height: 310px;
+  overflow: hidden;
+  background: var(--panel);
+  cursor: pointer;
+}
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s;
+}
+.photo:hover img { transform: scale(1.07); }
+.photo::after {
+  content: "";
+  position: absolute;
+  inset: 40% 0 0;
+  background: linear-gradient(transparent, rgba(0,0,0,.8));
+  pointer-events: none;
+}
+.photo-info {
+  position: absolute;
+  bottom: 17px;
+  left: 18px;
+  z-index: 1;
+}
+.photo-info h3 { font: 22px Georgia, serif; }
+.photo-info span {
+  color: var(--gold);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.photo.hidden { display: none; }
+
+/* About */
+.about {
+  background: #171717;
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 60px;
+}
+.about-image {
+  width: 100%;
+  height: 430px;
+  object-fit: cover;
+}
+.about-copy h2 {
+  font: 44px Georgia, serif;
+  margin: 15px 0 22px;
+}
+.about-copy h2 span { color: var(--gold); }
+.about-copy p { color: var(--muted); margin-bottom: 18px; }
+
+/* Contact */
+.contact { text-align: center; }
+.contact p { color: var(--muted); margin: 15px auto 28px; }
+.contact .btn { margin-top: 8px; }
+
+/* Footer */
+footer {
+  border-top: 1px solid #303030;
+  padding: 28px 0;
+  text-align: center;
+  color: #888;
+  font-size: 12px;
+}
+footer span { color: var(--gold); }
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0,0,0,.96);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 55px 20px;
+}
+.lightbox.open { display: flex; }
+.lightbox img {
+  max-width: 92%;
+  max-height: 85vh;
+  object-fit: contain;
+}
+.lightbox-close {
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  border: none;
+  background: none;
+  color: white;
+  font-size: 40px;
+  cursor: pointer;
+}
+.lightbox-caption {
+  position: absolute;
+  bottom: 17px;
+  color: var(--gold);
+  text-align: center;
+}
+
+/* Mobile */
+@media (max-width: 760px) {
+  .menu-toggle { display: block; }
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 76px;
+    left: 0;
+    right: 0;
+    background: #151515;
+    padding: 22px 5%;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .nav-links.show { display: flex; }
+  .hero { min-height: 520px; }
+  .gallery { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .photo { height: 230px; }
+  .about-grid { grid-template-columns: 1fr; gap: 30px; }
+  .about-image { height: 300px; }
+  section { padding: 65px 0; }
+}
+@media (max-width: 430px) {
+  .gallery { grid-template-columns: 1fr; }
+  .photo { height: 290px; }
+  .section-heading h2 { font-size: 34px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="container">
+    <nav>
+      <a class="logo" href="#home">GK<span>photo</span>gallery</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu">?</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-content">
+        <div class="eyebrow">Welcome to GKphotogallery</div>
+	<!--        <h1>Every picture<br>tells <span>a story.</span></h1> -->
+        <p>
+          Capturing the scenery of north Aegean
+        </p>
+        <a class="btn" href="#gallery">Explore the gallery</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <div class="container">
+      <div class="section-heading">
+        <div class="eyebrow">My collection</div>
+        <h2>Photography Gallery</h2>
+        <p>A selection of photographs</p>
+      </div>
+
+      <div class="filters" aria-label="Filter photographs">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="landscape">Landscapes</button>
+        <button class="filter-btn" data-filter="portrait">Kitchen</button>
+        <button class="filter-btn" data-filter="wildlife">Bathroom</button>
+        <button class="filter-btn" data-filter="travel">Sitting room</button>
+        <button class="filter-btn" data-filter="architecture">View room</button>
+        <button class="filter-btn" data-filter="other">Entrance</button>
+      </div>
+
+      <div class="gallery" id="galleryGrid">
+
+        <!-- Replace these sample images with your own images. -->
+
+        <article class="photo" data-category="landscape">
+          <img src="IMG_0673.jpg" alt="Capturing north Aegean" loading="lazy">
+          <div class="photo-info"><span>Capturing north Aegean Scenery</span><h3>Sea Dreams</h3></div>
+        </article>
+
+        <article class="photo" data-category="landscape">
+          <img src="IMG_3044.jpeg" alt="photograph" loading="lazy">
+          <div class="photo-info"><span>North Aegean Scenery</span><h3>Over the city view (West)</h3></div>
+        </article>
+
+        <article class="photo" data-category="wildlife">
+          <img src="IMG_3043.jpeg" alt="photograph" loading="lazy">
+          <div class="photo-info"><span>North Aegean Scenery</span><h3>Over the city view (East)</h3></div>
+        </article>
+
+        <article class="photo" data-category="travel">
+          <img src="IMG_5485.jpeg" alt="Entrance" loading="lazy">
+          <div class="photo-info"><span>Entrance</span><h3>Sitting room</h3></div>
+        </article>
+
+        <article class="photo" data-category="architecture">
+          <img src="IMG_5489.jpeg" alt="Architecture photography" loading="lazy">
+          <div class="photo-info"><span>Window view</span><h3>Sitting room</h3></div>
+        </article>
+
+        <article class="photo" data-category="portrait">
+          <img src="IMG_5488.jpeg" alt="Sunset landscape" loading="lazy">
+          <div class="photo-info"><span>Kitchen</span><h3>view</h3></div>
+        </article>
+
+        <article class="photo" data-category="other">
+          <img src="IMG_5490.jpeg" alt="Nature photography" loading="lazy">
+          <div class="photo-info"><span>Entrance external</span><h3>West view</h3></div>
+        </article>
+
+        <article class="photo" data-category="travel">
+          <img src="IMG_5484.jpeg" alt="Travel landscape" loading="lazy">
+          <div class="photo-info"><span>Bedroom</span><h3>East view</h3></div>
+        </article>
+
+        <article class="photo" data-category="wildlife">
+          <img src="IMG_5482.jpeg" alt="Animal photography" loading="lazy">
+          <div class="photo-info"><span>Bathroom</span><h3>in progress</h3></div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="container about-grid">
+      <img class="about-image"
+        src="IMG_3043.jpeg"
+        alt="Bring the grounding tranquility of open landscapes into modern home " loading="lazy">
+
+      <div class="about-copy">
+        <div class="eyebrow">Bring the grounding tranquility of open landscapes into modern home</div>
+        <h2>About <span>My Photography</span></h2>
+        <p>
+          Welcome to GKphotogallery, a personal collection of photographs
+          bringing the grounding tranquility of open landscapes into modern home!
+        </p>
+        <p>
+          ..every photograph represents a moment worth remembering.
+        </p>
+        <p>
+          Thank you for visiting and exploring my home.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="eyebrow">Get in touch</div>
+      <div class="section-heading">
+        <h2>Contact</h2>
+      </div>
+      <p>Have a question ?</p>
+      <!-- Change this email address to your own. -->
+      <a class="btn" href="mailto:kornaros@gmail.com">Contact Me</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    © <span id="year"></span> <span>GKphotogallery</span>.
+    All rights reserved.
+  </div>
+</footer>
+
+<!-- Full-screen image viewer -->
+<div class="lightbox" id="lightbox" role="dialog"
+     aria-modal="true" aria-label="Image viewer">
+  <button class="lightbox-close" id="lightboxClose"
+          aria-label="Close image viewer">?</button>
+  <img id="lightboxImage" src="" alt="">
+  <div class="lightbox-caption" id="lightboxCaption"></div>
+</div>
+
+<script>
+// Mobile navigation
+const menuToggle = document.getElementById("menuToggle");
+const navLinks = document.getElementById("navLinks");
+
+menuToggle.addEventListener("click", () => {
+  navLinks.classList.toggle("show");
+});
+
+navLinks.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => navLinks.classList.remove("show"));
+});
+
+// Gallery category filters
+const filterButtons = document.querySelectorAll(".filter-btn");
+const photos = document.querySelectorAll(".photo");
+
+filterButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    filterButtons.forEach(btn => btn.classList.remove("active"));
+    button.classList.add("active");
+
+    const category = button.dataset.filter;
+
+    photos.forEach(photo => {
+      const matches = category === "all" ||
+                      photo.dataset.category === category;
+      photo.classList.toggle("hidden", !matches);
+    });
+  });
+});
+
+// Full-screen photo viewer
+const lightbox = document.getElementById("lightbox");
+const lightboxImage = document.getElementById("lightboxImage");
+const lightboxCaption = document.getElementById("lightboxCaption");
+const lightboxClose = document.getElementById("lightboxClose");
+
+photos.forEach(photo => {
+  photo.addEventListener("click", () => {
+    const img = photo.querySelector("img");
+    const title = photo.querySelector("h3").textContent;
+
+    lightboxImage.src = img.src;
+    lightboxImage.alt = img.alt;
+    lightboxCaption.textContent = title;
+    lightbox.classList.add("open");
+    document.body.style.overflow = "hidden";
+    lightboxClose.focus();
+  });
+});
+
+function closeLightbox() {
+  lightbox.classList.remove("open");
+  lightboxImage.src = "";
+  document.body.style.overflow = "";
+}
+
+lightboxClose.addEventListener("click", closeLightbox);
+
+lightbox.addEventListener("click", event => {
+  if (event.target === lightbox) closeLightbox();
+});
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closeLightbox();
+});
+
+// Automatic copyright year
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
